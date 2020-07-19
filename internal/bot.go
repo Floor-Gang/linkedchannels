@@ -117,22 +117,21 @@ func (bot *Bot) getMembersOfVC(voiceID string) []string {
 	return members
 }
 
-func (bot *Bot) sync(textID string, voiceID string) {
-	members := bot.getMembersOfVC(voiceID)
-	channel, err := bot.Client.Channel(textID)
+func (bot *Bot) sync(text *dg.Channel, voice *dg.Channel) {
+	var err error
+	var inVC bool
+	members := bot.getMembersOfVC(voice.ID)
 	toAdd := members
 
-	if err != nil {
-		return
-	}
+	log.Printf("Syncing %s and #%s\n", voice.Name, text.Name)
 
-	for _, perm := range channel.PermissionOverwrites {
+	for _, perm := range text.PermissionOverwrites {
 		if perm.Type == "member" {
-			inVC := isInVC(perm.ID, members)
+			inVC = isInVC(perm.ID, members)
 			if !inVC {
 				log.Println("Removed " + perm.ID)
 				if err = bot.Client.ChannelPermissionDelete(
-					channel.ID, perm.ID,
+					text.ID, perm.ID,
 				); err != nil {
 					log.Printf("Failed to remove %s because \n"+err.Error(), perm.ID)
 				}
@@ -151,7 +150,7 @@ func (bot *Bot) sync(textID string, voiceID string) {
 		log.Println("Added " + memberID)
 
 		if err = bot.Client.ChannelPermissionSet(
-			channel.ID,
+			text.ID,
 			memberID,
 			"member",
 			bot.PermReference,

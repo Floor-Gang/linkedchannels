@@ -60,13 +60,25 @@ func (bot *Bot) onVoiceUpdate(_ *dg.Session, voice *dg.VoiceStateUpdate) {
 	}
 
 	if textID, isOK := bot.Config.Channels[voice.ChannelID]; isOK {
-		bot.sync(textID, voice.ChannelID)
+		text, err := bot.Client.Channel(textID)
+		voice, _ := bot.Client.Channel(voice.ChannelID)
+		if err == nil {
+			bot.sync(text, voice)
+		} else {
+			log.Printf("Couldn't find %s linked with %s\n", textID, voice.Name)
+		}
 	}
 
 }
 
 func (bot *Bot) handleOldState(voice *dg.VoiceState) {
 	if textID, isOK := bot.Config.Channels[voice.ChannelID]; isOK {
-		bot.sync(textID, voice.ChannelID)
+		text, err := bot.Client.Channel(textID)
+		voice, _ := bot.Client.Channel(voice.ChannelID)
+		if err == nil {
+			bot.sync(text, voice)
+		} else {
+			log.Printf("Couldn't find %s linked with %s\n", textID, voice.Name)
+		}
 	}
 }
