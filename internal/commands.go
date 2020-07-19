@@ -42,7 +42,8 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 	}
 
 	if channelA.Type == channelB.Type {
-		util.Reply(bot.Client, msg, "Both channels must be a text channel and voice channel")
+		util.Reply(bot.Client, msg, "Both channels must uniquely be a voice and text channel")
+		return
 	}
 
 	if channelA.Type == dg.ChannelTypeGuildText {
