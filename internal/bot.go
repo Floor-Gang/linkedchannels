@@ -11,7 +11,7 @@ type Bot struct {
 	Client        *dg.Session
 	Config        *Config
 	OldStates     map[string]*dg.VoiceState
-	Serving       string // The Guild serving
+	Serving       string
 	PermReference int
 }
 
@@ -56,7 +56,7 @@ func Start() {
 	client, _ := dg.New(register.Token)
 
 	client.Identify.Intents = dg.MakeIntent(
-		dg.IntentsGuildVoiceStates | dg.IntentsGuildMessages,
+		dg.IntentsGuildVoiceStates + dg.IntentsGuildMessages,
 	)
 
 	// setup bot struct
@@ -105,6 +105,7 @@ func (bot *Bot) getMembersOfVC(voiceID string) []string {
 	guild, err := bot.Client.State.Guild(bot.Serving)
 
 	if err != nil {
+		log.Println("Failed to get guild " + bot.Serving)
 		return members
 	}
 
@@ -136,6 +137,7 @@ func (bot *Bot) sync(text *dg.Channel, voice *dg.Channel) {
 					log.Printf("Failed to remove %s because \n"+err.Error(), perm.ID)
 				}
 			} else {
+				log.Printf("%s is already in the voice channel\n", perm.ID)
 				for i, memberID := range members {
 					if memberID == perm.ID {
 						members[i] = members[len(members)-1]
