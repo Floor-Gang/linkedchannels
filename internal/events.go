@@ -52,11 +52,8 @@ func (bot *Bot) onVoiceUpdate(_ *dg.Session, voice *dg.VoiceStateUpdate) {
 	oldState, isOK := bot.OldStates[voice.UserID]
 	bot.OldStates[voice.UserID] = voice.VoiceState
 
-	if isOK && len(voice.ChannelID) == 0 {
+	if isOK {
 		bot.handleOldState(oldState)
-		return
-	} else if len(voice.ChannelID) == 0 {
-		return
 	}
 
 	if textID, isOK := bot.Config.Channels[voice.ChannelID]; isOK {
@@ -68,7 +65,6 @@ func (bot *Bot) onVoiceUpdate(_ *dg.Session, voice *dg.VoiceStateUpdate) {
 			log.Printf("Couldn't find %s linked with %s\n", textID, voice.Name)
 		}
 	}
-
 }
 
 func (bot *Bot) handleOldState(voice *dg.VoiceState) {

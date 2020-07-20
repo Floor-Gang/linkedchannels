@@ -131,9 +131,8 @@ func (bot *Bot) sync(text *dg.Channel, voice *dg.Channel) {
 			inVC = isInVC(perm.ID, members)
 			if !inVC {
 				log.Println("Removed " + perm.ID)
-				if err = bot.Client.ChannelPermissionDelete(
-					text.ID, perm.ID,
-				); err != nil {
+				err = bot.Client.ChannelPermissionDelete(text.ID, perm.ID)
+				if err != nil {
 					log.Printf("Failed to remove %s because \n"+err.Error(), perm.ID)
 				}
 			} else {
