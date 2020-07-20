@@ -66,7 +66,7 @@ func Start() {
 		Config:        &config,
 		Serving:       register.Serving,
 		OldStates:     make(map[string]*dg.VoiceState),
-		PermReference: dg.PermissionViewChannel + dg.PermissionSendMessages,
+		PermReference: dg.PermissionViewChannel,
 	}
 
 	client.AddHandler(bot.onMessage)
