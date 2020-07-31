@@ -12,7 +12,7 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 
 	// args should be [prefix, add, <text channel id>, <voice channel id>]
 	if len(args) < 4 {
-		util.Reply(bot.Client, msg,
+		_, _ = util.Reply(bot.Client, msg,
 			fmt.Sprintf("%s add <channel id> <channel id>", bot.Config.Prefix),
 		)
 		return
@@ -30,19 +30,19 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 	channelA, err := bot.Client.Channel(channelAID)
 
 	if err != nil {
-		util.Reply(bot.Client, msg, fmt.Sprintf(`"%s" isn't a channel ID`, args[2]))
+		_, _ = util.Reply(bot.Client, msg, fmt.Sprintf(`"%s" isn't a channel ID`, args[2]))
 		return
 	}
 
 	channelB, err := bot.Client.Channel(channelBID)
 
 	if err != nil {
-		util.Reply(bot.Client, msg, fmt.Sprintf(`"%s" isn't a channel ID`, args[3]))
+		_, _ = util.Reply(bot.Client, msg, fmt.Sprintf(`"%s" isn't a channel ID`, args[3]))
 		return
 	}
 
 	if channelA.Type == channelB.Type {
-		util.Reply(bot.Client, msg, "Both channels must uniquely be a voice and text channel")
+		_, _ = util.Reply(bot.Client, msg, "Both channels must uniquely be a voice and text channel")
 		return
 	}
 
@@ -51,7 +51,7 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 	} else if channelA.Type == dg.ChannelTypeGuildVoice {
 		voice = channelA
 	} else {
-		util.Reply(bot.Client, msg,
+		_, _ = util.Reply(bot.Client, msg,
 			fmt.Sprintf(`"%s" isn't a voice or text channel.'`, channelAID),
 		)
 		return
@@ -62,7 +62,7 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 	} else if channelB.Type == dg.ChannelTypeGuildVoice {
 		voice = channelB
 	} else {
-		util.Reply(bot.Client, msg,
+		_, _ = util.Reply(bot.Client, msg,
 			fmt.Sprintf(`"%s" isn't a voice or text channel.'`, channelBID),
 		)
 		return
@@ -70,13 +70,13 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 
 	if text != nil && voice != nil {
 		bot.AddPair(text, voice)
-		util.Reply(
+		_, _ = util.Reply(
 			bot.Client,
 			msg,
 			fmt.Sprintf("Linked %s and %s", text.Name, voice.Name),
 		)
 	} else {
-		util.Reply(bot.Client, msg, "An internal error occurred.")
+		_, _ = util.Reply(bot.Client, msg, "An internal error occurred.")
 	}
 }
 
@@ -90,9 +90,9 @@ func (bot *Bot) cmdRemove(msg *dg.Message, args []string) {
 	removed := bot.RemPair(channel)
 
 	if removed {
-		util.Reply(bot.Client, msg, "Removed.")
+		_, _ = util.Reply(bot.Client, msg, "Removed.")
 	} else {
-		util.Reply(bot.Client, msg, "Couldn't find "+channel)
+		_, _ = util.Reply(bot.Client, msg, "Couldn't find "+channel)
 	}
 }
 
@@ -113,5 +113,5 @@ func (bot *Bot) cmdList(msg *dg.Message) {
 		}
 	}
 
-	util.Reply(bot.Client, msg, list)
+	_, _ = util.Reply(bot.Client, msg, list)
 }

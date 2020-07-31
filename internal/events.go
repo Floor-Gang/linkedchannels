@@ -21,7 +21,7 @@ func (bot *Bot) onMessage(_ *dg.Session, msg *dg.MessageCreate) {
 		return
 	}
 
-	isAdmin, _ := bot.Auth.CheckMember(msg.Author.ID)
+	isAdmin, _ := bot.Auth.Verify(msg.Author.ID)
 
 	if isAdmin {
 		switch args[1] {
@@ -36,7 +36,11 @@ func (bot *Bot) onMessage(_ *dg.Session, msg *dg.MessageCreate) {
 			break
 		}
 	} else {
-		util.Reply(bot.Client, msg.Message, "You need to be an admin to run these commands.")
+		_, _ = util.Reply(
+			bot.Client,
+			msg.Message,
+			"You need to be an admin to run these commands.",
+		)
 	}
 }
 

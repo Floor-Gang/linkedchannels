@@ -53,7 +53,7 @@ func Start() {
 	}
 
 	// setup discord bot
-	client, _ := dg.New(register.Token)
+	client, _ := dg.New("Bot " + config.Token)
 
 	client.Identify.Intents = dg.MakeIntent(
 		dg.IntentsGuildVoiceStates + dg.IntentsGuildMessages,

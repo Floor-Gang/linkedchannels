@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	Auth     string            `yaml:"auth_server"`
+	Token    string            `yaml:"token"`
 	Prefix   string            `yaml:"prefix"`
 	Channels map[string]string `yaml:"linked_channels"`
 }
@@ -15,7 +16,6 @@ const configPath = "./config.yml"
 
 func GetConfig() Config {
 	config := Config{
-		Auth:     "",
 		Prefix:   ".link",
 		Channels: make(map[string]string),
 	}
