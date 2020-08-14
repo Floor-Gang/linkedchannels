@@ -119,6 +119,10 @@ func (bot *Bot) getMembersOfVC(voiceID string) []string {
 }
 
 func (bot *Bot) sync(text *dg.Channel, voice *dg.Channel) {
+	if voice == nil {
+		return
+	}
+
 	var err error
 	var inVC bool
 	members := bot.getMembersOfVC(voice.ID)
