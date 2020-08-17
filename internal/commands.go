@@ -4,6 +4,7 @@ import (
 	"fmt"
 	util "github.com/Floor-Gang/utilpkg/botutil"
 	dg "github.com/bwmarrin/discordgo"
+	"log"
 	"strings"
 )
 
@@ -22,22 +23,39 @@ func (bot *Bot) cmdAdd(msg *dg.Message, args []string) {
 	if strings.HasPrefix(channelAID, "<") {
 		channelAID = util.FilterTag(channelAID)
 	}
+
 	channelBID := args[3]
 	if strings.HasPrefix(channelBID, "<") {
 		channelBID = util.FilterTag(channelBID)
 	}
 
 	channelA, err := bot.Client.Channel(channelAID)
-
 	if err != nil {
-		_, _ = util.Reply(bot.Client, msg, fmt.Sprintf(`"%s" isn't a channel ID`, args[2]))
+		_, _ = util.Reply(
+			bot.Client,
+			msg,
+			fmt.Sprintf(`"%s" isn't a channel ID`, args[2]),
+		)
+
+		log.Printf(
+			"Failed to get \"%s\", because \n%s\n",
+			channelAID, err,
+		)
 		return
 	}
 
 	channelB, err := bot.Client.Channel(channelBID)
-
 	if err != nil {
-		_, _ = util.Reply(bot.Client, msg, fmt.Sprintf(`"%s" isn't a channel ID`, args[3]))
+		_, _ = util.Reply(
+			bot.Client,
+			msg,
+			fmt.Sprintf(`"%s" isn't a channel ID`, args[3]),
+		)
+
+		log.Printf(
+			"Failed to get \"%s\", because \n%s\n",
+			channelBID, err,
+		)
 		return
 	}
 

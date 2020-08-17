@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// Bot represents the linked channels bot.
 type Bot struct {
 	Auth          *auth.AuthClient
 	Client        *dg.Session
@@ -15,6 +16,7 @@ type Bot struct {
 	PermReference int
 }
 
+// Start starts the linked channels bot.
 func Start() {
 	config := GetConfig()
 	// Start auth server
@@ -78,6 +80,7 @@ func Start() {
 	}
 }
 
+// AddPair creates a link between a voice and text channel.
 func (bot *Bot) AddPair(text *dg.Channel, voice *dg.Channel) {
 	if voice.Type != dg.ChannelTypeGuildVoice {
 		log.Fatalln("The channel provided isn't a voice channel.")
@@ -89,6 +92,7 @@ func (bot *Bot) AddPair(text *dg.Channel, voice *dg.Channel) {
 	bot.Config.Save()
 }
 
+// RemPair removes a link between a voice and text channel.
 func (bot *Bot) RemPair(ID string) bool {
 	for textID, voiceID := range bot.Config.Channels {
 		if textID == ID || voiceID == ID {
