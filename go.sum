@@ -14,6 +14,8 @@ github.com/Floor-Gang/utilpkg v0.0.0-20200719193634-87559dd8f78a h1:agp2BSn/cv/J
 github.com/Floor-Gang/utilpkg v0.0.0-20200719193634-87559dd8f78a/go.mod h1:YGMhgcYTkgeexqN0A4t3fP9MBFF+IFEY0sjFcM7Q6Ko=
 github.com/Floor-Gang/utilpkg v0.0.0-20200816021233-7053806dd986 h1:AU0Rld9sa/hyTZTfikEjy2SmgYxSMzOV1DnbnlGTwpo=
 github.com/Floor-Gang/utilpkg v0.0.0-20200816021233-7053806dd986/go.mod h1:YGMhgcYTkgeexqN0A4t3fP9MBFF+IFEY0sjFcM7Q6Ko=
+github.com/Floor-Gang/utilpkg v0.0.0-20200910190225-471dad9310d2 h1:n4j3jruy+JZt5UGnRUPkcuEWRqm7JQjNfYt73P9q0Lk=
+github.com/Floor-Gang/utilpkg v0.0.0-20200910190225-471dad9310d2/go.mod h1:YGMhgcYTkgeexqN0A4t3fP9MBFF+IFEY0sjFcM7Q6Ko=
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
 github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
 github.com/bwmarrin/discordgo v0.21.1 h1:UI2PWwzvn5IFuscYcDc6QB/duhs9MUIjQ4HclcIZisc=
